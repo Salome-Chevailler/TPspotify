@@ -1,3 +1,4 @@
+// https://codesandbox.io/s/sleepy-zhukovsky-34pog?file=/spotify.js:1792-2026
 // l'entête de la requête avec le token
 const headers = {
   "Content-Type": "application/json",
@@ -53,5 +54,18 @@ function afficheAlbums(albums) {
 }
 
 function detailsAlbum(event) {
-  console.log(event.target.id);
+  let idAlbum = event.target.id;
+  let url = "https://api.spotify.com/v1/albums/" + idAlbum;
+
+  // exécuter la requête AJAX
+  fetch(url, fetchOptions)
+    .then((response) => {
+      return response.json();
+    })
+    .then((dataJSON) => {
+      // dataJSON = les données renvoyées
+      console.log(dataJSON);
+      //afficheDetailAlbum(dataJSON);
+    })
+    .catch((error) => console.log(error));
 }
