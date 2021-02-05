@@ -65,7 +65,26 @@ function detailsAlbum(event) {
     .then((dataJSON) => {
       // dataJSON = les données renvoyées
       console.log(dataJSON);
-      //afficheDetailAlbum(dataJSON);
+      afficheDetailAlbum(dataJSON);
     })
     .catch((error) => console.log(error));
+}
+
+function afficheDetailAlbum(album) {
+  document.getElementById("disque").textContent = album.name;
+  document.getElementById("chanteur").textContent = album.artists[0].name;
+
+  // -- le texte HTML à générer = une liste HTML <u></ul>
+  let resHTML = "<ul>";
+  for (let chanson of album.tracks.items) {
+    resHTML += '<li id="' + chanson.id + '">' + chanson.name + "</li>";
+    // -- si la chanson dispose d'une bande son, mettre la balise audio
+    if (chanson.preview_url) {
+      resHTML +=
+        '<audio id="AudioSong" controls src="' +
+        chanson.preview_url +
+        '">pas supporté</audio>';
+    }
+  }
+  document.getElementById("chansons").innerHTML = resHTML;
 }
